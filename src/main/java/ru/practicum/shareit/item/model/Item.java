@@ -14,7 +14,7 @@ public class Item {
     private int owner;
     private int request;
 
-    public Item(){
+    public Item() {
     }
 
     public Item(String name, String description) {

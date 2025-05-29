@@ -31,7 +31,7 @@ public class ItemDaoServiceImpl implements ItemDaoService {
     public Item update(Item item) {
         List<Item> userItems = itemsMap.get(item.getOwner());
         List<Item> toRemove = userItems.stream()
-                .filter(userItem -> (userItem.getId())==(item.getId()))
+                .filter(userItem -> userItem.getId() == item.getId())
                 .toList();
         userItems.removeAll(toRemove);
         userItems.add(item);
@@ -42,7 +42,7 @@ public class ItemDaoServiceImpl implements ItemDaoService {
     public Optional<Item> findItemById(int itemId) {
         return itemsMap.values().stream()
                 .flatMap(Collection::stream)
-                .filter(item -> (item.getId())==(itemId))
+                .filter(item -> item.getId() == itemId)
                 .findFirst();
     }
 

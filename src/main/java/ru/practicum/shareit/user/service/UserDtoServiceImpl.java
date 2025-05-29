@@ -75,7 +75,7 @@ public class UserDtoServiceImpl implements UserDtoService {
     private void checkEmail(User user) {
         boolean isEmailNotUnique = userDaoService.findAll().stream()
                 .anyMatch(thisUser -> thisUser.getEmail().equals(user.getEmail())
-                        && !(thisUser.getId()==(user.getId())));
+                        && !(thisUser.getId() == user.getId()));
         if (isEmailNotUnique) {
             throw new NotUniqueEmailException("Пользователь с такой электронной почтой уже существует");
         }
@@ -83,6 +83,6 @@ public class UserDtoServiceImpl implements UserDtoService {
 
     private boolean isUserInMemory(int userId) {
         return userDaoService.findAll().stream()
-                .anyMatch(user -> user.getId()==(userId));
+                .anyMatch(user -> user.getId() == userId);
     }
 }

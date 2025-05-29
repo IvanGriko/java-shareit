@@ -35,7 +35,7 @@ public class ItemDtoServiceImpl implements ItemDtoService {
         UserDto user = UserDtoMapper.toUserDto(userDaoService.findById(userId));
         Optional<Item> itemOptional = itemDaoService.findItemById(itemId);
         if (itemOptional.isPresent()) {
-            if (!(itemOptional.get().getOwner()==userId)) {
+            if (!(itemOptional.get().getOwner() == userId)) {
                 throw new NotFoundException(String.format("Пользователь с id %s " +
                         "не является владельцем вещи id %s.", userId, itemId));
             }
