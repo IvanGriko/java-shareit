@@ -1,6 +1,8 @@
 package ru.practicum.shareit.item.service;
 
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 import ru.practicum.shareit.exceptions.NotFoundException;
 import ru.practicum.shareit.item.dto.ItemDto;
@@ -18,9 +20,11 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class ItemDtoServiceImpl implements ItemDtoService {
-    private final ItemDaoService itemDaoService;
-    private final UserDaoService userDaoService;
+
+    final ItemDaoService itemDaoService;
+    final UserDaoService userDaoService;
 
     @Override
     public ItemDto add(int userId, ItemDto itemDto) {
@@ -89,4 +93,5 @@ public class ItemDtoServiceImpl implements ItemDtoService {
                 .map(ItemDtoMapper::toItemDto)
                 .collect(Collectors.toList());
     }
+
 }

@@ -1,7 +1,10 @@
 package ru.practicum.shareit.request;
 
+import jakarta.validation.constraints.PastOrPresent;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
 
@@ -10,9 +13,13 @@ import java.time.LocalDateTime;
  */
 @Data
 @AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class ItemRequest {
-    private int id;
-    private String description;
-    private int requester;
-    private LocalDateTime created;
+
+    int id;
+    String description;
+    int requester;
+    @PastOrPresent
+    LocalDateTime created;
+
 }

@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class UserDtoServiceImpl implements UserDtoService {
+
     private final UserDaoService userDaoService;
 
     @Override
@@ -85,4 +86,5 @@ public class UserDtoServiceImpl implements UserDtoService {
         return userDaoService.findAll().stream()
                 .anyMatch(user -> user.getId() == userId);
     }
+
 }

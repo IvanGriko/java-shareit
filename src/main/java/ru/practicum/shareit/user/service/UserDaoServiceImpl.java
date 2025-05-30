@@ -1,6 +1,8 @@
 package ru.practicum.shareit.user.service;
 
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Repository;
 import ru.practicum.shareit.exceptions.NotFoundException;
 import ru.practicum.shareit.exceptions.NotUniqueEmailException;
@@ -10,10 +12,12 @@ import java.util.*;
 
 @Repository
 @RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserDaoServiceImpl implements UserDaoService {
-    private final Map<Integer, User> users = new HashMap<>();
-    private final Set<String> emails = new HashSet<>();
-    private int usersIdCount = 1;
+
+    final Map<Integer, User> users = new HashMap<>();
+    final Set<String> emails = new HashSet<>();
+    int usersIdCount = 1;
 
     @Override
     public User add(User user) {
@@ -71,4 +75,5 @@ public class UserDaoServiceImpl implements UserDaoService {
             throw new NotFoundException("Пользователя с " + id + " не существует");
         }
     }
+
 }

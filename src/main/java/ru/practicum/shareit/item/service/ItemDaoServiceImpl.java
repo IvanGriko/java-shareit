@@ -1,6 +1,8 @@
 package ru.practicum.shareit.item.service;
 
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Repository;
 import ru.practicum.shareit.item.model.Item;
 
@@ -9,10 +11,11 @@ import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class ItemDaoServiceImpl implements ItemDaoService {
 
-    private final Map<Integer, List<Item>> itemsMap = new HashMap<>();
-    private int itemsIdCount = 1;
+    final Map<Integer, List<Item>> itemsMap = new HashMap<>();
+    int itemsIdCount = 1;
 
     @Override
     public Item add(Item item) {
@@ -61,4 +64,5 @@ public class ItemDaoServiceImpl implements ItemDaoService {
                         || item.getDescription().toLowerCase().contains(searchText))
                 .collect(Collectors.toList());
     }
+
 }

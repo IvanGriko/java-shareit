@@ -5,6 +5,7 @@ import ru.practicum.shareit.user.dto.UserDto;
 import java.util.List;
 
 public interface UserDtoService {
+
     UserDto add(UserDto userDto);
 
     UserDto update(int id, UserDto userDto);
@@ -14,4 +15,5 @@ public interface UserDtoService {
     void delete(int id);
 
     List<UserDto> findAll();
+
 }

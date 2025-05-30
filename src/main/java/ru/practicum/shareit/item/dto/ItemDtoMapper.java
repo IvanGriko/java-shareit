@@ -1,8 +1,12 @@
 package ru.practicum.shareit.item.dto;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import ru.practicum.shareit.item.model.Item;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ItemDtoMapper {
+
     public static ItemDto toItemDto(Item item) {
         return new ItemDto(
                 item.getId(),
@@ -21,4 +25,5 @@ public class ItemDtoMapper {
                 available,
                 itemDto.getRequest() != 0 ? itemDto.getRequest() : 0);
     }
+
 }

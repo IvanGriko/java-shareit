@@ -1,21 +1,24 @@
 package ru.practicum.shareit.item.model;
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 /**
  * TODO Sprint add-controllers.
  */
 @Data
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@NoArgsConstructor
 public class Item {
-    private int id;
-    private String name;
-    private String description;
-    private boolean available;
-    private int owner;
-    private int request;
 
-    public Item() {
-    }
+    int id;
+    String name;
+    String description;
+    boolean available;
+    int owner;
+    int request;
 
     public Item(String name, String description) {
         this.name = name;
