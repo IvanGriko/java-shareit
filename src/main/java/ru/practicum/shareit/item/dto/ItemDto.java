@@ -3,6 +3,7 @@ package ru.practicum.shareit.item.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -40,4 +41,6 @@ public class ItemDto {
         this.available = available;
     }
 
+    public ItemDto(String name, String description, boolean available) {
+    }
 }

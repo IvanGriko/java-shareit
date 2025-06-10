@@ -1,55 +1,42 @@
 package ru.practicum.shareit.item.model;
 
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
+import ru.practicum.shareit.request.ItemRequest;
+import ru.practicum.shareit.user.model.User;
 
-/**
- * TODO Sprint add-controllers.
- */
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table(name = "items")
 public class Item {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
+    @Column(name = "name", nullable = false)
     String name;
+    @Column(name = "description", nullable = false)
     String description;
-    boolean available;
-    int owner;
-    int request;
-
-    public Item(String name, String description) {
-        this.name = name;
-        this.description = description;
-    }
-
-    public Item(int id, String name, String description, boolean available, int owner, int request) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.available = available;
-        this.owner = owner;
-        this.request = request;
-    }
+    @Column(name = "available", nullable = false)
+    Boolean available;
+    @ManyToOne
+    @JoinColumn(name = "owner_id", nullable = false)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    User owner;
+    @ManyToOne
+    @JoinColumn(name = "request_id")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    ItemRequest request;
 
     public Item(String name, String description, Boolean available) {
         this.name = name;
         this.description = description;
         this.available = available;
-    }
-
-    public Item(int id, String name, String description, Boolean available, Integer request) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.available = available;
-        this.request = request;
-    }
-
-    public boolean getAvailable() {
-        return available;
     }
 
 }
