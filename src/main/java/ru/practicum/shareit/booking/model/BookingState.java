@@ -3,6 +3,7 @@ package ru.practicum.shareit.booking.model;
 import java.util.Arrays;
 
 public enum BookingState {
+
     ALL,
     CURRENT,
     PAST,
@@ -16,4 +17,5 @@ public enum BookingState {
                 .findFirst()
                 .orElse(null);
     }
+
 }

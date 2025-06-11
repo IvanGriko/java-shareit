@@ -20,6 +20,6 @@ public interface ItemService {
 
     List<ItemDtoOut> search(int userId, String text);
 
-    @Transactional
     CommentDtoOut createComment(int userId, CommentDto commentDto, int itemId);
+
 }

@@ -11,6 +11,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "users")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
@@ -18,4 +19,5 @@ public class User {
     String name;
     @Column(name = "email", nullable = false, unique = true)
     String email;
+
 }

@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BookingItemDto {
+
     private int id;
     private int bookerId;
+
 }

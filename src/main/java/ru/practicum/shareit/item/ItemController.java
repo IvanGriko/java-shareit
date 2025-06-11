@@ -25,7 +25,7 @@ public class ItemController {
     @PostMapping
     public ItemDtoOut add(@RequestHeader(USER_HEADER) int userId,
                           @Valid @RequestBody ItemDto itemDto) {
-        log.info("POST Запрос на добавление пользователем с id = {} предмета {}", userId, itemDto.toString());
+        log.info("POST-запрос на добавление пользователем с id {} вещи с id {}", userId, itemDto.toString());
         return itemDtoService.add(userId, itemDto);
     }
 
@@ -33,7 +33,7 @@ public class ItemController {
     public ItemDtoOut update(@RequestHeader(USER_HEADER) int userId,
                              @RequestBody ItemDto itemDto,
                              @PathVariable int itemId) {
-        log.info("PATCH Запрос на обновление предмета с id = {} пользователем с id = {} ", itemId, userId);
+        log.info("PATCH-запрос на обновление вещи с id {} пользователем с id {} ", itemId, userId);
         return itemDtoService.update(userId, itemId, itemDto);
     }
 
@@ -41,20 +41,20 @@ public class ItemController {
     public ItemDtoOut findById(@RequestHeader(USER_HEADER) int userId,
                                @PathVariable("itemId")
                                int itemId) {
-        log.info("GET Запрос на получение предмета с id = {} пользователем с id = {} ", itemId, userId);
+        log.info("GET-запрос на получение вещи с id {} пользователем с id {} ", itemId, userId);
         return itemDtoService.findItemById(userId, itemId);
     }
 
     @GetMapping
     public List<ItemDtoOut> findAll(@RequestHeader(USER_HEADER) int userId) {
-        log.info("GET Запрос на получение предметов пользователя с id = {}", userId);
+        log.info("GET-запрос на получение списка вещей пользователя с id {}", userId);
         return itemDtoService.findAll(userId);
     }
 
     @GetMapping("/search")
     public List<ItemDtoOut> searchItems(@RequestHeader(USER_HEADER) int userId,
                                         @RequestParam(name = "text") String text) {
-        log.info("GET Запрос на поиск предметов c текстом = {}", text);
+        log.info("GET-запрос на поиск вещей c текстом '{}'", text);
         return itemDtoService.search(userId, text);
     }
 
@@ -62,7 +62,8 @@ public class ItemController {
     public CommentDtoOut createComment(@RequestHeader(USER_HEADER) int userId,
                                        @Validated @RequestBody CommentDto commentDto,
                                        @PathVariable int itemId) {
-        log.info("POST Запрос на создание комментария id = {}", itemId);
+        log.info("POST-запрос на создание комментария с id {}", itemId);
         return itemDtoService.createComment(userId, commentDto, itemId);
     }
+
 }

@@ -1,6 +1,10 @@
 package ru.practicum.shareit.booking.service;
 
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
+import lombok.experimental.FieldDefaults;
+import org.apache.coyote.BadRequestException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.shareit.booking.dto.BookingDto;
@@ -25,11 +29,13 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Transactional(readOnly = true)
 public class BookingServiceImpl implements BookingService {
-    private final BookingRepository bookingRepository;
-    private final UserService userService;
-    private final ItemRepository itemRepository;
+
+    BookingRepository bookingRepository;
+    UserService userService;
+    ItemRepository itemRepository;
 
     @Override
     @Transactional
@@ -78,32 +84,28 @@ public class BookingServiceImpl implements BookingService {
                         .stream()
                         .map(BookingDtoMapper::toBookingOut)
                         .collect(Collectors.toList());
-
             case BookingState.PAST:
                 return bookingRepository.findAllPastBookingsByBookerId(bookerId, LocalDateTime.now())
                         .stream()
                         .map(BookingDtoMapper::toBookingOut)
                         .collect(Collectors.toList());
-
             case BookingState.FUTURE:
                 return bookingRepository.findAllFutureBookingsByBookerId(bookerId, LocalDateTime.now())
                         .stream()
                         .map(BookingDtoMapper::toBookingOut)
                         .collect(Collectors.toList());
-
             case BookingState.WAITING:
                 return bookingRepository.findAllWaitingBookingsByBookerId(bookerId, LocalDateTime.now())
                         .stream()
                         .map(BookingDtoMapper::toBookingOut)
                         .collect(Collectors.toList());
-
             case BookingState.REJECTED:
                 return bookingRepository.findAllRejectedBookingsByBookerId(bookerId, LocalDateTime.now())
                         .stream()
                         .map(BookingDtoMapper::toBookingOut)
                         .collect(Collectors.toList());
             default:
-                throw new IllegalArgumentException("Unknown state: UNSUPPORTED_STATUS");
+                throw new IllegalArgumentException("Неизвестный статус бронирования.");
         }
     }
 
@@ -122,35 +124,30 @@ public class BookingServiceImpl implements BookingService {
                         .stream()
                         .map(BookingDtoMapper::toBookingOut)
                         .collect(Collectors.toList());
-
             case BookingState.PAST:
                 return bookingRepository.findAllPastBookingsByOwnerId(ownerId, LocalDateTime.now())
                         .stream()
                         .map(BookingDtoMapper::toBookingOut)
                         .collect(Collectors.toList());
-
             case BookingState.FUTURE:
                 return bookingRepository.findAllFutureBookingsByOwnerId(ownerId, LocalDateTime.now())
                         .stream()
                         .map(BookingDtoMapper::toBookingOut)
                         .collect(Collectors.toList());
-
             case BookingState.WAITING:
                 return bookingRepository.findAllWaitingBookingsByOwnerId(ownerId, LocalDateTime.now())
                         .stream()
                         .map(BookingDtoMapper::toBookingOut)
                         .collect(Collectors.toList());
-
             case BookingState.REJECTED:
                 return bookingRepository.findAllRejectedBookingsByOwnerId(ownerId)
                         .stream()
                         .map(BookingDtoMapper::toBookingOut)
                         .collect(Collectors.toList());
             default:
-                throw new IllegalArgumentException("Unknown state: UNSUPPORTED_STATUS");
+                throw new IllegalArgumentException("Неизвестный статус бронирования.");
         }
     }
-
 
     private void bookingValidation(BookingDto bookingDto, User user, Item item) {
         if (!item.getAvailable()) {
@@ -160,18 +157,19 @@ public class BookingServiceImpl implements BookingService {
             throw new NotFoundException("Вещь не найдена.");
         }
         if (bookingDto.getStart().isAfter(bookingDto.getEnd()) || bookingDto.getStart().isEqual(bookingDto.getEnd())) {
-            throw new ValidationException("Дата окончания не может быть раньше или равна дате начала");
+            throw new ValidationException("Дата окончания должна быть позже даты начала.");
         }
     }
 
     private BookingState validState(String bookingState) {
         BookingState state = BookingState.from(bookingState);
         if (state == null) {
-            throw new IllegalArgumentException("Unknown state: " + bookingState);
+            throw new IllegalArgumentException("Неизвестный статус бронирования: " + bookingState);
         }
         return state;
     }
 
+    @SneakyThrows
     private Booking validateBookingDetails(int userId, int bookingId, Integer number) {
         Optional<Booking> bookingById = bookingRepository.findById(bookingId);
         if (bookingById.isEmpty()) {
@@ -181,19 +179,20 @@ public class BookingServiceImpl implements BookingService {
         switch (number) {
             case 1:
                 if (!(booking.getItem().getOwner().getId() == userId)) {
-                    throw new NotFoundException("Пользователь не является владельцем");
+                    throw new BadRequestException("Пользователь не является владельцем вещи.");
                 }
                 if (!booking.getStatus().equals(BookingStatus.WAITING)) {
-                    throw new ValidationException("Бронь cо статусом WAITING");
+                    throw new ValidationException("Бронь cо статусом WAITING.");
                 }
                 return booking;
             case 2:
                 if (!(booking.getBooker().getId() == userId)
                         && !(booking.getItem().getOwner().getId() == userId)) {
-                    throw new NotFoundException("Пользователь не владелeц и не автор бронирования ");
+                    throw new NotFoundException("Пользователь не владелeц и не автор бронирования.");
                 }
                 return booking;
         }
         return null;
     }
+
 }

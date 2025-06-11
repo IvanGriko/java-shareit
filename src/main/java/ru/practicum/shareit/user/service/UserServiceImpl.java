@@ -12,7 +12,6 @@ import ru.practicum.shareit.user.repository.UserRepository;
 import java.util.*;
 import java.util.stream.Collectors;
 
-
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -32,10 +31,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserDto update(int id, UserDto userDto) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> {
-                            return new NotFoundException("Пользователя с " + id + " не существует");
-                        }
-                );
+                .orElseThrow(() -> new NotFoundException("Пользователя с id " + id + " не существует"));
         String name = userDto.getName();
         if (name != null && !name.isBlank()) {
             user.setName(name);
@@ -51,10 +47,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserDto findById(int id) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> {
-                            return new NotFoundException("Пользователя с " + id + " не существует");
-                        }
-                );
+                .orElseThrow(() -> new NotFoundException("Пользователя с id " + id + " не существует"));
         return UserDtoMapper.toUserDto(user);
     }
 
@@ -71,4 +64,5 @@ public class UserServiceImpl implements UserService {
                 .map(UserDtoMapper::toUserDto)
                 .collect(Collectors.toList());
     }
+
 }

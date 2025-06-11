@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "comments", schema = "public")
 public class Comment {
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,4 +41,5 @@ public class Comment {
         this.item = item;
         this.author = author;
     }
+
 }

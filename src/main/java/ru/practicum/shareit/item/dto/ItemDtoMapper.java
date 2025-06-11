@@ -8,6 +8,7 @@ import java.util.List;
 
 @UtilityClass
 public class ItemDtoMapper {
+
     public ItemDto toItemDto(Item item) {
         return new ItemDto(
                 item.getName(),
@@ -42,4 +43,5 @@ public class ItemDtoMapper {
                 itemDto.getDescription(),
                 itemDto.getAvailable());
     }
+
 }
