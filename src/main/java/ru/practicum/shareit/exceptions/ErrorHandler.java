@@ -38,4 +38,5 @@ public class ErrorHandler {
         log.warn("Получен статус 500 SERVER_ERROR {}", e.getMessage(), e);
         return new ErrorResponse(e.getMessage());
     }
+
 }

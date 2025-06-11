@@ -1,6 +1,5 @@
 package ru.practicum.shareit.user;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
@@ -17,35 +16,37 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/users")
 public class UserController {
+
     private final UserService userService;
 
     @PostMapping
     public UserDto add(@Validated({Create.class}) @RequestBody UserDto userDto) {
-        log.info("Запрос на добавление пользователя {}", userDto);
+        log.info("POST-запрос на добавление пользователя {}", userDto);
         return userService.add(userDto);
     }
 
     @GetMapping("/{userId}")
     public UserDto findById(@PathVariable int userId) {
-        log.info("Запрос на получение пользователя id = {}", userId);
+        log.info("GET-запрос на получение пользователя id = {}", userId);
         return userService.findById(userId);
     }
 
     @GetMapping
     public List<UserDto> findAll() {
-        log.info("Запрос на получение списка всех пользователей");
+        log.info("GET-запрос на получение списка всех пользователей");
         return userService.findAll();
     }
 
     @PatchMapping("/{userId}")
     public UserDto update(@PathVariable int userId, @Validated({Update.class}) @RequestBody UserDto userDto) {
-        log.info("Запрос на обновление пользователя id = {}", userId);
+        log.info("PATCH-запрос на обновление пользователя id = {}", userId);
         return userService.update(userId, userDto);
     }
 
     @DeleteMapping("/{userId}")
     public void delete(@PathVariable int userId) {
-        log.info("Delete - запрос на удаление пользователя id = {}", userId);
+        log.info("DELETE-запрос на удаление пользователя id = {}", userId);
         userService.delete(userId);
     }
+
 }

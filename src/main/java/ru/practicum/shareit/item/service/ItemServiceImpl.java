@@ -1,7 +1,9 @@
 package ru.practicum.shareit.item.service;
 
 import jakarta.validation.ValidationException;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.shareit.booking.dto.BookingDtoMapper;
@@ -29,12 +31,13 @@ import static java.util.stream.Collectors.toList;
 @Repository
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ItemServiceImpl implements ItemService {
 
-    private final ItemRepository itemRepository;
-    private final CommentRepository commentRepository;
-    private final BookingRepository bookingRepository;
-    private final UserService userService;
+    ItemRepository itemRepository;
+    CommentRepository commentRepository;
+    BookingRepository bookingRepository;
+    UserService userService;
 
     @Override
     @Transactional
@@ -50,11 +53,10 @@ public class ItemServiceImpl implements ItemService {
     public ItemDtoOut update(int userId, int itemId, ItemDto itemDto) {
         UserDto user = userService.findById(userId);
         Item item = itemRepository.findById(itemId)
-                .orElseThrow(() -> new NotFoundException("Вещи с " + itemId + " не существует")
+                .orElseThrow(() -> new NotFoundException("Вещи с id " + itemId + " не существует")
                 );
         if (!UserDtoMapper.toUser(user).equals(item.getOwner())) {
-            throw new NotFoundException("Пользователь с id = " + userId +
-                    " не является собственником вещи id = " + itemId);
+            throw new NotFoundException("Пользователь с id " + userId + "не является владельцем вещи с id " + itemId);
         }
         Boolean isAvailable = itemDto.getAvailable();
         if (isAvailable != null) {
@@ -77,8 +79,7 @@ public class ItemServiceImpl implements ItemService {
         userService.findById(userId);
         Optional<Item> itemGet = itemRepository.findById(itemId);
         if (itemGet.isEmpty()) {
-            throw new NotFoundException("У пользователя с id = " + userId + " не " +
-                    "существует вещи с id = " + itemId);
+            throw new NotFoundException("У пользователя с id " + userId + " не существует вещи с id " + itemId);
         }
         Item item = itemGet.get();
         ItemDtoOut itemDtoOut = ItemDtoMapper.toItemDtoOut(itemGet.get());
@@ -143,13 +144,13 @@ public class ItemServiceImpl implements ItemService {
         User user = UserDtoMapper.toUser(userService.findById(userId));
         Optional<Item> itemById = itemRepository.findById(itemId);
         if (itemById.isEmpty()) {
-            throw new NotFoundException("У пользователя с id = " + userId + " не " +
-                    "существует вещи с id = " + itemId);
+            throw new NotFoundException("У пользователя с id " + userId + " не существует вещи с id " + itemId);
         }
         Item item = itemById.get();
         List<Booking> userBookings = bookingRepository.findAllByUserBookings(userId, itemId, LocalDateTime.now());
         if (userBookings.isEmpty()) {
-            throw new ValidationException("У пользователя с id   " + userId + " должно быть хотя бы одно бронирование предмета с id " + itemId);
+            throw new ValidationException("У пользователя с id " + userId +
+                    " должно быть хотя бы одно бронирование вещи с id " + itemId);
         }
         return CommentDtoMapper.toCommentDtoOut(commentRepository.save(CommentDtoMapper.toComment(commentDto, item, user)));
     }
@@ -182,4 +183,5 @@ public class ItemServiceImpl implements ItemService {
                 .findFirst()
                 .orElse(null);
     }
+
 }

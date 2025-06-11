@@ -8,6 +8,7 @@ import java.util.List;
 
 
 public interface ItemRepository extends JpaRepository<Item, Integer> {
+
     @Query("select i " +
             "from Item as i " +
             "where i.available = true and " +
@@ -16,4 +17,5 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
     List<Item> search(String text);
 
     List<Item> findAllByOwnerId(int ownerId);
+
 }

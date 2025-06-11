@@ -16,17 +16,16 @@ import java.time.LocalDateTime;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "requests", schema = "public")
 public class ItemRequest {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     @Column(name = "description", nullable = false, length = 255)
     String description;
-
     @ManyToOne
     @JoinColumn(name = "requestor_id")
     @ToString.Exclude
     User requester;
-
     @PastOrPresent
     LocalDateTime created;
 
@@ -34,4 +33,5 @@ public class ItemRequest {
         this.id = id;
         this.description = description;
     }
+
 }

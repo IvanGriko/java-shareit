@@ -1,6 +1,5 @@
 package ru.practicum.shareit.item.service;
 
-import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.shareit.item.dto.CommentDto;
 import ru.practicum.shareit.item.dto.CommentDtoOut;
 import ru.practicum.shareit.item.dto.ItemDto;
@@ -20,6 +19,6 @@ public interface ItemService {
 
     List<ItemDtoOut> search(int userId, String text);
 
-    @Transactional
     CommentDtoOut createComment(int userId, CommentDto commentDto, int itemId);
+
 }

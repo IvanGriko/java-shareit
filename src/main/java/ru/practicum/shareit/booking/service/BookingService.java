@@ -6,6 +6,7 @@ import ru.practicum.shareit.booking.dto.BookingDtoOut;
 import java.util.List;
 
 public interface BookingService {
+
     BookingDtoOut add(int userId, BookingDto bookingDto);
 
     BookingDtoOut update(int userId, int bookingId, Boolean approved);
@@ -15,4 +16,5 @@ public interface BookingService {
     List<BookingDtoOut> findAll(int userId, String state);
 
     List<BookingDtoOut> findAllOwner(int userId, String state);
+
 }
