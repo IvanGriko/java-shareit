@@ -1,5 +1,6 @@
 package ru.practicum.shareit.request.dto;
 
+import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
 public class ItemRequestDto {
 
     int id;
+    @Size(max = 512)
     String description;
     UserDto requester;
     LocalDateTime created;
