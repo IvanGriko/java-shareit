@@ -2,14 +2,11 @@ package ru.practicum.shareit.item.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-
-/**
- * TODO Sprint add-controllers.
- */
 
 @Data
 @RequiredArgsConstructor
@@ -17,8 +14,10 @@ import lombok.experimental.FieldDefaults;
 public class ItemDto {
 
     int id;
+    @Size(max = 255)
     @NotBlank
     String name;
+    @Size(max = 512)
     @NotBlank
     String description;
     @NotNull
@@ -38,6 +37,9 @@ public class ItemDto {
         this.name = name;
         this.description = description;
         this.available = available;
+    }
+
+    public ItemDto(String name, String description, boolean available) {
     }
 
 }
