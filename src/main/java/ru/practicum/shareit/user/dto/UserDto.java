@@ -2,27 +2,26 @@ package ru.practicum.shareit.user.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import ru.practicum.shareit.user.markers.Create;
+import ru.practicum.shareit.user.markers.Update;
 
-@RequiredArgsConstructor
 @Data
+@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserDto {
 
     int id;
-    @NotBlank
+    @Size(max = 100)
+    @NotBlank(groups = {Create.class})
     String name;
-    @NotBlank
-    @Email
+    @Size(max = 100)
+    @Email(groups = {Create.class, Update.class})
+    @NotBlank(groups = {Create.class})
     String email;
-
-    public UserDto(int id, String name, String email) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-    }
 
 }

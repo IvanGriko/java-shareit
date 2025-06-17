@@ -1,29 +1,47 @@
 package ru.practicum.shareit.item.dto;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
+import ru.practicum.shareit.booking.dto.BookingDtoOut;
 import ru.practicum.shareit.item.model.Item;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+import java.util.List;
+
+@UtilityClass
 public class ItemDtoMapper {
 
-    public static ItemDto toItemDto(Item item) {
+    public ItemDto toItemDto(Item item) {
         return new ItemDto(
+                item.getName(),
+                item.getDescription(),
+                item.getAvailable());
+    }
+
+    public ItemDtoOut toItemDtoOut(Item item) {
+        return new ItemDtoOut(
+                item.getId(),
+                item.getName(),
+                item.getDescription(),
+                item.getAvailable());
+    }
+
+    public ItemDtoOut toItemDtoOut(Item item, BookingDtoOut lastBooking, List<CommentDtoOut> comments, BookingDtoOut nextBooking) {
+        return new ItemDtoOut(
                 item.getId(),
                 item.getName(),
                 item.getDescription(),
                 item.getAvailable(),
-                item.getRequest() != 0 ? item.getRequest() : 0);
+                lastBooking,
+                comments,
+                nextBooking
+        );
     }
 
-    public static Item toItem(ItemDto itemDto) {
-        Boolean available = itemDto.getAvailable() != null ? itemDto.getAvailable() : false;
+
+    public Item toItem(ItemDto itemDto) {
         return new Item(
-                itemDto.getId(),
                 itemDto.getName(),
                 itemDto.getDescription(),
-                available,
-                itemDto.getRequest() != 0 ? itemDto.getRequest() : 0);
+                itemDto.getAvailable());
     }
 
 }
