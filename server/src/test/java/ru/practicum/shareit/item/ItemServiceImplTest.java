@@ -188,9 +188,8 @@ class ItemServiceImplTest {
         NotFoundException itemNotFoundException = assertThrows(NotFoundException.class,
                 () -> itemService.update(user.getId(), itemDto.getId(), ItemMapper.toItemDto(updatedItem)));
         assertEquals(itemNotFoundException.getMessage(), "Пользователь с id " + user.getId() +
-                " не является собственником вещи c id " + item.getId());
+                " не является собственником вещи с id " + item.getId());
     }
-
     @Test
     void updateItemWhenItemIdIsNotValid() {
         when(itemRepository.findById(anyInt())).thenReturn(Optional.empty());

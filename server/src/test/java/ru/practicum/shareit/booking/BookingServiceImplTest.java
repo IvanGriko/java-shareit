@@ -109,7 +109,7 @@ class BookingServiceImplTest {
         when(itemRepository.findById(anyInt())).thenReturn(Optional.of(item));
         ValidationException bookingValidationException = assertThrows(ValidationException.class,
                 () -> bookingService.add(userDto.getId(), bookingDtoEndBeforeStart));
-        assertEquals(bookingValidationException.getMessage(), "Дата окончания не может быть раньше или равна дате начала");
+        assertEquals(bookingValidationException.getMessage(), "Дата окончания должна быть позже даты начала");
     }
 
     @Test
@@ -185,7 +185,7 @@ class BookingServiceImplTest {
         when(bookingRepository.findById(anyInt())).thenReturn(Optional.of(booking));
         NotFoundException bookingNotFoundException = assertThrows(NotFoundException.class,
                 () -> bookingService.findBookingByUserId(3, booking.getId()));
-        assertEquals(bookingNotFoundException.getMessage(), "Пользователь не владелeц и не автор бронирования.");
+        assertEquals(bookingNotFoundException.getMessage(), "Пользователь не владелец и не автор бронирования ");
     }
 
     @Test
