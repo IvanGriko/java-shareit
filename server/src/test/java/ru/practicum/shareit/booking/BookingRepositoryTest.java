@@ -18,10 +18,10 @@ import ru.practicum.shareit.user.User;
 
 import java.time.LocalDateTime;
 import java.util.List;
-//import java.util.Optional;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-//import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @DataJpaTest
@@ -217,27 +217,27 @@ class BookingRepositoryTest {
         assertEquals(bookings.get(0).getStatus(), BookingStatus.APPROVED);
     }
 
-//    @Test
-//    void getLastBooking() {
-//        Optional<Booking> bookingOptional = bookingRepository.getLastBooking(1, LocalDateTime.now());
-//        Booking actualBooking;
-//        if (bookingOptional.isPresent()) {
-//            actualBooking = bookingOptional.get();
-//            assertEquals(actualBooking.getId(), 1);
-//        } else {
-//            fail();
-//        }
-//    }
-//
-//    @Test
-//    void getNextBooking() {
-//        Optional<Booking> bookingOptional = bookingRepository.getNextBooking(1, LocalDateTime.now());
-//        Booking actualBooking;
-//        if (bookingOptional.isPresent()) {
-//            actualBooking = bookingOptional.get();
-//            assertEquals(actualBooking.getId(), 3);
-//        } else {
-//            fail();
-//        }
-//    }
+    @Test
+    void getLastBooking() {
+        Optional<Booking> bookingOptional = bookingRepository.getLastBooking(1, LocalDateTime.now());
+        Booking actualBooking;
+        if (bookingOptional.isPresent()) {
+            actualBooking = bookingOptional.get();
+            assertEquals(actualBooking.getId(), 1);
+        } else {
+            fail();
+        }
+    }
+
+    @Test
+    void getNextBooking() {
+        Optional<Booking> bookingOptional = bookingRepository.getNextBooking(1, LocalDateTime.now());
+        Booking actualBooking;
+        if (bookingOptional.isPresent()) {
+            actualBooking = bookingOptional.get();
+            assertEquals(actualBooking.getId(), 3);
+        } else {
+            fail();
+        }
+    }
 }
