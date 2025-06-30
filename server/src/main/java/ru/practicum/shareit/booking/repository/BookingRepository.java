@@ -97,16 +97,20 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
             "ORDER BY b.start_date DESC", nativeQuery = true)
     List<Booking> findAllRejectedBookingsByOwnerId(Integer ownerId, Pageable pageable);
 
-    @Query(value = "SELECT * FROM bookings as b " +
-            "JOIN items as i ON i.id = b.item_id " +
+    @Query(value = "SELECT * " +
+            "FROM bookings AS b " +
+            "JOIN (SELECT id AS item_id, name, description, available, owner_id, request_id FROM items) AS i " +
+            "ON i.item_id = b.item_id " +
             "WHERE b.item_id = ?1 " +
             "AND b.start_date < ?2 " +
             "AND b.status = 'APPROVED' " +
             "ORDER BY b.start_date DESC LIMIT 1 ", nativeQuery = true)
     Optional<Booking> getLastBooking(Integer idItem, LocalDateTime currentTime);
 
-    @Query(value = "SELECT * FROM bookings as b " +
-            "JOIN items as i ON i.id = b.item_id " +
+    @Query(value = "SELECT * " +
+            "FROM bookings AS b " +
+            "JOIN (SELECT id AS item_id, name, description, available, owner_id, request_id FROM items) AS i " +
+            "ON i.item_id = b.item_id " +
             "WHERE b.item_id = ?1 " +
             "AND b.start_date > ?2 " +
             "AND b.status = 'APPROVED' " +
