@@ -1,11 +1,12 @@
 package ru.practicum.shareit.item.model;
 
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.Id;
 import ru.practicum.shareit.user.User;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter

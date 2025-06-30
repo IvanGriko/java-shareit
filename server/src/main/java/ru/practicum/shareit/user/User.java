@@ -1,9 +1,9 @@
 package ru.practicum.shareit.user;
 
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
-import javax.persistence.*;
+import org.springframework.data.annotation.Id;
 
 @Data
 @AllArgsConstructor

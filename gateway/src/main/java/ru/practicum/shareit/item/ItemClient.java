@@ -22,9 +22,8 @@ public class ItemClient extends BaseClient {
     @Autowired
     public ItemClient(@Value("${shareit-server.url}") String serverUrl, RestTemplateBuilder builder) {
         super(builder.uriTemplateHandler(new DefaultUriBuilderFactory(serverUrl + API_PREFIX))
-                .requestFactory(HttpComponentsClientHttpRequestFactory::new)
-                .build()
-        );
+                .requestFactory(() -> new HttpComponentsClientHttpRequestFactory())
+                .build());
     }
 
     public ResponseEntity<Object> create(Integer userId, ItemDto itemDto) {

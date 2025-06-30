@@ -1,17 +1,18 @@
 package ru.practicum.shareit.item.model;
 
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.annotation.Id;
 import ru.practicum.shareit.request.ItemRequest;
 import ru.practicum.shareit.user.User;
-
-import javax.persistence.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity@FieldDefaults(level = AccessLevel.PRIVATE)
+@Entity
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "items")
 public class Item {
 

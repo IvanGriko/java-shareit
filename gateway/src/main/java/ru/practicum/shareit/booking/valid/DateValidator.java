@@ -1,9 +1,9 @@
 package ru.practicum.shareit.booking.valid;
 
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 import ru.practicum.shareit.booking.dto.BookItemRequestDto;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
 import java.time.LocalDateTime;
 
 public class DateValidator implements ConstraintValidator<StartBeforeEndDateValid, BookItemRequestDto> {
