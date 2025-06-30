@@ -190,6 +190,7 @@ class ItemServiceImplTest {
         assertEquals(itemNotFoundException.getMessage(), "Пользователь с id " + user.getId() +
                 " не является собственником вещи с id " + item.getId());
     }
+
     @Test
     void updateItemWhenItemIdIsNotValid() {
         when(itemRepository.findById(anyInt())).thenReturn(Optional.empty());
