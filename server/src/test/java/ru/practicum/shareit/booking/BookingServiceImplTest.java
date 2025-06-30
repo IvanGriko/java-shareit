@@ -159,7 +159,7 @@ class BookingServiceImplTest {
     @Test
     void updateWhenUserIsNotItemOwnerShouldThrowNotFoundException() {
         when(bookingRepository.findById(anyInt())).thenReturn(Optional.of(booking));
-        NotFoundException bookingNotFoundException = assertThrows(NotFoundException.class,
+        ValidationException bookingNotFoundException = assertThrows(ValidationException.class,
                 () -> bookingService.update(userDto.getId(), booking.getId(), true));
         assertEquals(bookingNotFoundException.getMessage(), "Пользователь не является владельцем");
     }
