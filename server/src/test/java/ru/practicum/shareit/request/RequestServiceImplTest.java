@@ -104,7 +104,7 @@ class RequestServiceImplTest {
         when(requestRepository.findById(request.getId())).thenReturn(Optional.empty());
         NotFoundException requestNotFoundException = assertThrows(NotFoundException.class,
                 () -> requestService.getRequestById(userDto.getId(), request.getId()));
-        assertEquals(requestNotFoundException.getMessage(), String.format("Запрос с id: %s" +
+        assertEquals(requestNotFoundException.getMessage(), String.format("Запрос с id %s" +
                 " не был найден.", request.getId()));
     }
 }
