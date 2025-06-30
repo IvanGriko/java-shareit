@@ -99,8 +99,8 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
 
     @Query(value = "SELECT * " +
             "FROM bookings AS b " +
-            "JOIN (SELECT id AS item_id, name, description, available, owner_id, request_id FROM items) AS i " +
-            "ON i.item_id = b.item_id " +
+            "JOIN (SELECT id AS item_identifier, name, description, available, owner_id, request_id FROM items) AS i " +
+            "ON i.item_identifier = b.item_id " +
             "WHERE b.item_id = ?1 " +
             "AND b.start_date < ?2 " +
             "AND b.status = 'APPROVED' " +
@@ -109,8 +109,8 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
 
     @Query(value = "SELECT * " +
             "FROM bookings AS b " +
-            "JOIN (SELECT id AS item_id, name, description, available, owner_id, request_id FROM items) AS i " +
-            "ON i.item_id = b.item_id " +
+            "JOIN (SELECT id AS item_identifier, name, description, available, owner_id, request_id FROM items) AS i " +
+            "ON i.item_identifier = b.item_id " +
             "WHERE b.item_id = ?1 " +
             "AND b.start_date > ?2 " +
             "AND b.status = 'APPROVED' " +
