@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.annotation.Id;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.User;
 
