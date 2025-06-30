@@ -16,6 +16,7 @@ import ru.practicum.shareit.user.User;
 public class Item {
 
     @Id
+    @Column(name = "item_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
