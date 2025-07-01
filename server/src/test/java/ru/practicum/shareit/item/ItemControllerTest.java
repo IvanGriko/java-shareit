@@ -26,7 +26,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static ru.practicum.shareit.item.ItemController.USER_HEADER;
+import static ru.practicum.shareit.Constants.USER_HEADER;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @WebMvcTest(controllers = ItemController.class)
