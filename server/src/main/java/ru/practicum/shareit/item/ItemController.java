@@ -12,13 +12,14 @@ import ru.practicum.shareit.item.service.ItemService;
 
 import java.util.List;
 
+import static ru.practicum.shareit.Constants.USER_HEADER;
+
 @Slf4j
 @RestController
 @RequestMapping("/items")
 @Validated
 public class ItemController {
 
-    public static final String USER_HEADER = "X-Sharer-User-Id";
     @Autowired
     private ItemService itemService;
 
